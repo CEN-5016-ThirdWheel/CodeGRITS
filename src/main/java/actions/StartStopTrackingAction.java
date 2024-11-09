@@ -85,6 +85,7 @@ public class StartStopTrackingAction extends AnAction {
                 isTracking = true;
                 ConfigAction.setIsEnabled(false);
                 AddLabelActionGroup.setIsEnabled(true);
+                StatusIconAction.updateIconState(StatusIconAction.IconState.RECORDING);
                 String projectPath = e.getProject() != null ? e.getProject().getBasePath() : "";
                 String realDataOutputPath = Objects.equals(config.getDataOutputPath(), ConfigDialog.selectDataOutputPlaceHolder)
                         ? projectPath : config.getDataOutputPath();
@@ -118,6 +119,7 @@ public class StartStopTrackingAction extends AnAction {
                 iDETracker.stopTracking();
                 AddLabelAction.setIsEnabled(false);
                 ConfigAction.setIsEnabled(true);
+                StatusIconAction.updateIconState(StatusIconAction.IconState.NOT_RECORDING);
                 if (config.getCheckBoxes().get(1) && eyeTracker != null) {
                     eyeTracker.stopTracking();
                 }

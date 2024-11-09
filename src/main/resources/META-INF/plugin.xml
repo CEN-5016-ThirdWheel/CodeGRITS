@@ -37,6 +37,10 @@
         <projectService serviceImplementation="api.RealtimeDataImpl"/>
         <notificationGroup id="CodeGRITS Notification Group"
                            displayType="BALLOON"/>
+        <statusBarWidgetFactory
+                implementation="components.StatusIconFactory"
+                id="com.codegrits.StatusIcon"
+                order="first"/>
     </extensions>
 
     <actions>

@@ -25,6 +25,7 @@ public class StatusIcon implements StatusBarWidget, StatusBarWidget.IconPresenta
 
     // Load the icon
     private static final Icon RECORDING_ICON = IconLoader.getIcon("/recording-icon-tiny.svg", StatusIcon.class);
+    private static final Icon PAUSED_ICON = IconLoader.getIcon("/pause.svg", StatusIcon.class);
 
     public StatusIcon(Project project) {
         this.project = project;
@@ -61,6 +62,9 @@ public class StatusIcon implements StatusBarWidget, StatusBarWidget.IconPresenta
         if (currentState == IconState.RECORDING && isVisible) {
             return RECORDING_ICON;
         }
+        if (currentState == IconState.PAUSED && isVisible) {
+            return PAUSED_ICON;
+        }
         return null;
     }
 
@@ -77,6 +81,7 @@ public class StatusIcon implements StatusBarWidget, StatusBarWidget.IconPresenta
         return null;
     }
 
+    // update icon state
     public void updateState(IconState state) {
         LOG.info("Updating icon state from " + currentState + " to " + state);
         this.currentState = state;
@@ -94,6 +99,7 @@ public class StatusIcon implements StatusBarWidget, StatusBarWidget.IconPresenta
         updateWidget();
     }
 
+    // to flash the recording circle
     private void startFlashing() {
         flashTimer = new Timer(true);
         flashTimer.scheduleAtFixedRate(new TimerTask() {
@@ -117,23 +123,5 @@ public class StatusIcon implements StatusBarWidget, StatusBarWidget.IconPresenta
         } else {
             LOG.warn("Project is null or disposed when trying to update widget");
         }
-    }
-
-    public static StatusIcon createAndAdd(@NotNull Project project) {
-        LOG.info("Creating and adding StatusIcon for project: " + project.getName());
-        StatusIcon widget = new StatusIcon(project);
-        StatusBar statusBar = WindowManager.getInstance().getStatusBar(project);
-        if (statusBar != null) {
-            StatusBarWidget existingWidget = statusBar.getWidget(widget.ID());
-            if (existingWidget != null) {
-                LOG.info("Found existing widget, returning it");
-                return (StatusIcon) existingWidget;
-            }
-            LOG.info("Adding new widget to status bar");
-            statusBar.addWidget(widget);
-        } else {
-            LOG.warn("Status bar is null when trying to create widget");
-        }
-        return widget;
     }
 }

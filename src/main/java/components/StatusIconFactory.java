@@ -36,11 +36,6 @@ public class StatusIconFactory implements StatusBarWidgetFactory {
     }
 
     @Override
-    public void disposeWidget(@NotNull StatusBarWidget widget) {
-        // Clean up if needed
-    }
-
-    @Override
     public boolean canBeEnabledOn(@NotNull StatusBar statusBar) {
         return true;
     }

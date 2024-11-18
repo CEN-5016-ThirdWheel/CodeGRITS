@@ -8,12 +8,16 @@ public class StatusIconAction {
     private static final Logger LOG = Logger.getInstance(StatusIconAction.class);
     private static StatusIcon statusIcon;
 
+    // holding the state of the icon
     public enum IconState {
         RECORDING,
+        PAUSED,
         NOT_RECORDING
     }
 
+    // initalize the state to not recording
     private static IconState currentState = IconState.NOT_RECORDING;
+
 
     public static void setStatusIcon(StatusIcon icon) {
         LOG.info("Setting status icon reference");
@@ -24,17 +28,14 @@ public class StatusIconAction {
         }
     }
 
+    // function to update the state 
     public static void updateIconState(IconState state) {
         LOG.info("Updating icon state to: " + state);
         currentState = state;
-        if (statusIcon != null) {
+        if (statusIcon != null) { // only update if not null
             statusIcon.updateState(state);
         } else {
             LOG.warn("Status icon is null when trying to update state");
         }
-    }
-
-    public static IconState getCurrentState() {
-        return currentState;
     }
 }

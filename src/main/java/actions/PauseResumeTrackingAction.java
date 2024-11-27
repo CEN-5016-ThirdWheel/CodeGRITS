@@ -85,7 +85,7 @@ public class PauseResumeTrackingAction extends AnAction {
             StartStopTrackingAction.pauseTracking();
             ConfigAction.setIsEnabled(false);
             AddLabelAction.setIsEnabled(false);
-            StatusIconAction.updateIconState(StatusIconAction.IconState.NOT_RECORDING); // update icon
+            StatusIconAction.updateIconState(StatusIconAction.IconState.PAUSED); // update icon
             try {
                 screenRecorder.pauseRecording();
             } catch (IOException ex) {
